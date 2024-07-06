@@ -1,16 +1,17 @@
 import { useState } from 'react';
 
-function Display({ score, text }) {
+function Button({ text, handleClick }) {
+  return <button onClick={handleClick}>{text}</button>;
+}
+
+function Statistics({ value, text }) {
   return (
     <p>
-      {text} {score}
+      {text} {value}
     </p>
   );
 }
 
-function Button({ text, handleClick }) {
-  return <button onClick={handleClick}>{text}</button>;
-}
 function App() {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -18,6 +19,7 @@ function App() {
   const total = good + neutral + bad;
   const average = (good * 1 + neutral * 0 + bad * -1) / total;
   const positive = (good * 100) / total;
+
   const setToValue = (e) => {
     const btnName = e.target.innerText;
     if (btnName === 'Good') setGood(good + 1);
@@ -33,12 +35,12 @@ function App() {
       <Button handleClick={(e) => setToValue(e)} text="Bad" />
 
       <h1>Statistics</h1>
-      <Display score={good} text="Good" />
-      <Display score={neutral} text="Neutral" />
-      <Display score={bad} text="Bad" />
-      <Display score={total} text="All" />
-      <p>Average {average}</p>
-      <p>Positive {positive}%</p>
+      <Statistics value={good} text="Good" />
+      <Statistics value={neutral} text="Neutral" />
+      <Statistics value={bad} text="Bad" />
+      <Statistics value={total} text="All" />
+      <Statistics value={average} text="Average" />
+      <Statistics value={positive} text="Positive %" />
     </>
   );
 }
