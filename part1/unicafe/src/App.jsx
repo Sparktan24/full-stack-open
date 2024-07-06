@@ -6,22 +6,25 @@ function Button({ text, handleClick }) {
 
 function Statistics({ values }) {
   return (
-    <div>
-      <StatisticLine value={values.good} text="Good" />
-      <StatisticLine value={values.neutral} text="Neutral" />
-      <StatisticLine value={values.bad} text="Bad" />
-      <StatisticLine value={values.total} text="All" />
-      <StatisticLine value={values.average} text="Average" />
-      <StatisticLine value={values.positive} text="Positive %" />
-    </div>
+    <table>
+      <tbody>
+        <StatisticLine value={values.good} text="Good" />
+        <StatisticLine value={values.neutral} text="Neutral" />
+        <StatisticLine value={values.bad} text="Bad" />
+        <StatisticLine value={values.total} text="All" />
+        <StatisticLine value={values.average} text="Average" />
+        <StatisticLine value={values.positive} text="Positive %" />
+      </tbody>
+    </table>
   );
 }
 
 function StatisticLine({ value, text }) {
   return (
-    <p>
-      {text} {value}
-    </p>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   );
 }
 
