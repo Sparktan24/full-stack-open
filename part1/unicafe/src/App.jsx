@@ -33,14 +33,19 @@ function App() {
       <Button handleClick={(e) => setToValue(e)} text="Good" />
       <Button handleClick={(e) => setToValue(e)} text="Neutral" />
       <Button handleClick={(e) => setToValue(e)} text="Bad" />
-
       <h1>Statistics</h1>
-      <Statistics value={good} text="Good" />
-      <Statistics value={neutral} text="Neutral" />
-      <Statistics value={bad} text="Bad" />
-      <Statistics value={total} text="All" />
-      <Statistics value={average} text="Average" />
-      <Statistics value={positive} text="Positive %" />
+      {good || neutral || bad ? (
+        <>
+          <Statistics value={good} text="Good" />
+          <Statistics value={neutral} text="Neutral" />
+          <Statistics value={bad} text="Bad" />
+          <Statistics value={total} text="All" />
+          <Statistics value={average} text="Average" />
+          <Statistics value={positive} text="Positive %" />
+        </>
+      ) : (
+        <p>No feedback given</p>
+      )}
     </>
   );
 }
