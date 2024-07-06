@@ -4,7 +4,20 @@ function Button({ text, handleClick }) {
   return <button onClick={handleClick}>{text}</button>;
 }
 
-function Statistics({ value, text }) {
+function Statistics({ values }) {
+  return (
+    <div>
+      <StatisticLine value={values.good} text="Good" />
+      <StatisticLine value={values.neutral} text="Neutral" />
+      <StatisticLine value={values.bad} text="Bad" />
+      <StatisticLine value={values.total} text="All" />
+      <StatisticLine value={values.average} text="Average" />
+      <StatisticLine value={values.positive} text="Positive %" />
+    </div>
+  );
+}
+
+function StatisticLine({ value, text }) {
   return (
     <p>
       {text} {value}
@@ -35,14 +48,7 @@ function App() {
       <Button handleClick={(e) => setToValue(e)} text="Bad" />
       <h1>Statistics</h1>
       {good || neutral || bad ? (
-        <>
-          <Statistics value={good} text="Good" />
-          <Statistics value={neutral} text="Neutral" />
-          <Statistics value={bad} text="Bad" />
-          <Statistics value={total} text="All" />
-          <Statistics value={average} text="Average" />
-          <Statistics value={positive} text="Positive %" />
-        </>
+        <Statistics values={{ good, neutral, bad, total, average, positive }} />
       ) : (
         <p>No feedback given</p>
       )}
