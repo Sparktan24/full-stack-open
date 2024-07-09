@@ -3,7 +3,6 @@ import Content from './Content';
 import Total from './Total';
 
 function Course({ course }) {
-  //console.log(course.parts.exercises);
   return (
     <>
       <Header courseName={course.name} />
