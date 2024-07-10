@@ -10,12 +10,18 @@ function App() {
 
   const addPerson = (e) => {
     e.preventDefault();
-    const personObject = {
-      name: newName,
-    };
-    setNewName('');
-    setPersons(persons.concat(personObject));
+    const isRepeatedPerson = persons.find((person) => person.name === newName);
+    if (isRepeatedPerson) {
+      alert(`${newName} is already added to phonebook`);
+    } else {
+      const personObject = {
+        name: newName,
+      };
+      setNewName('');
+      setPersons(persons.concat(personObject));
+    }
   };
+
   return (
     <div>
       <h2>Phonebook</h2>
