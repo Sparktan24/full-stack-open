@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
 function App() {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -24,6 +27,8 @@ function App() {
     const isRepeatedPerson = persons.find((person) => person.name === newName);
     if (isRepeatedPerson) {
       alert(`${newName} is already added to phonebook`);
+      setNewName('');
+      setNewNumber('');
     } else {
       const personObject = {
         name: newName,
@@ -38,43 +43,30 @@ function App() {
   const handleFilterOnName = (e) => {
     const filterName = e.target.value.toLowerCase();
     const filteredPersons = persons.filter((person) => {
-      //console.log(person.name, e.target.value);
       return person.name.toLowerCase().includes(filterName);
     });
     filterName ? setFilteredPersons(filteredPersons) : setFilteredPersons([]);
-    console.log(filteredPersons);
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input onChange={handleFilterOnName} />
-      </div>
-      <div>
-        {filteredPersons.map((person, i) => (
-          <div key={i}>{person.name}</div>
-        ))}
-      </div>
-      <h2>Add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
+      <Filter
+        handleFilterOnName={handleFilterOnName}
+        filteredPersons={filteredPersons}
+      />
 
-      {persons.map((person, i) => (
-        <div key={i}>
-          {person.name} {person.number}
-        </div>
-      ))}
+      <h2>Add a new</h2>
+      <PersonForm
+        addPerson={addPerson}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
+
+      <h2>Numbers</h2>
+      <Persons persons={persons} />
     </div>
   );
 }
