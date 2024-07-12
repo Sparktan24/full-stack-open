@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
+import personService from './services/person';
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -11,9 +11,10 @@ function App() {
   const [filteredPersons, setFilteredPersons] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((res) => {
+    personService.getAll().then((personsRes) => setPersons(personsRes));
+    /* axios.get('http://localhost:3001/persons').then((res) => {
       setPersons(res.data);
-    });
+    }); */
   }, []);
 
   const handleNameChange = (e) => {
@@ -27,18 +28,28 @@ function App() {
   const addPerson = (e) => {
     e.preventDefault();
     const isRepeatedPerson = persons.find((person) => person.name === newName);
+
     if (isRepeatedPerson) {
       alert(`${newName} is already added to phonebook`);
       setNewName('');
       setNewNumber('');
+    } else if (!newName || !newNumber) {
+      alert('Name and number should contain data');
     } else {
       const personObject = {
         name: newName,
         number: newNumber,
       };
+      personService.create(personObject).then((newPerson) => {
+        setNewName('');
+        setNewNumber('');
+        setPersons(persons.concat(newPerson));
+      });
+      /* console.log('enters');
+      console.log(personObject);
       setNewName('');
       setNewNumber('');
-      setPersons(persons.concat(personObject));
+      setPersons(persons.concat(personObject)); */
     }
   };
 

@@ -1,0 +1,89 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "content": "HTML is easy",
+      "important": true
+    },
+    {
+      "id": 2,
+      "content": "Browser can execute only JavaScript",
+      "important": false
+    },
+    {
+      "id": 3,
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": true
+    },
+    {
+      "id": 4,
+      "content": "a new note...",
+      "important": false
+    },
+    {
+      "id": 5,
+      "content": "dfdf",
+      "important": false
+    },
+    {
+      "id": 6,
+      "content": "dd",
+      "important": false
+    },
+    {
+      "id": 7,
+      "content": "ss",
+      "important": false
+    },
+    {
+      "id": 8,
+      "content": "s",
+      "important": true
+    },
+    {
+      "id": "cc9e",
+      "content": "a new note...",
+      "important": false
+    },
+    {
+      "id": "7976",
+      "content": "muac",
+      "important": true
+    },
+    {
+      "id": "b8bd",
+      "content": "ds",
+      "important": true
+    },
+    {
+      "id": "008c",
+      "content": "a new note...",
+      "important": false
+    },
+    {
+      "id": "ed79",
+      "content": "a new note...",
+      "important": false
+    },
+    {
+      "id": "91b2",
+      "content": "New2",
+      "important": true
+    },
+    {
+      "id": "70ed",
+      "content": "a new note...",
+      "important": false
+    },
+    {
+      "id": "db37",
+      "content": "New3",
+      "important": true
+    },
+    {
+      "id": "6ae8",
+      "content": "New4",
+      "important": true
+    }
+  ]
+}
