@@ -11,4 +11,11 @@ const create = (newPerson) => {
   return request.then((res) => res.data);
 };
 
-export default { create, getAll };
+const deletePerson = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`).then((res) => {
+    res.data;
+  });
+  return request;
+};
+
+export default { create, getAll, deletePerson };

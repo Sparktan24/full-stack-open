@@ -12,9 +12,6 @@ function App() {
 
   useEffect(() => {
     personService.getAll().then((personsRes) => setPersons(personsRes));
-    /* axios.get('http://localhost:3001/persons').then((res) => {
-      setPersons(res.data);
-    }); */
   }, []);
 
   const handleNameChange = (e) => {
@@ -45,11 +42,6 @@ function App() {
         setNewNumber('');
         setPersons(persons.concat(newPerson));
       });
-      /* console.log('enters');
-      console.log(personObject);
-      setNewName('');
-      setNewNumber('');
-      setPersons(persons.concat(personObject)); */
     }
   };
 
@@ -59,6 +51,14 @@ function App() {
       return person.name.toLowerCase().includes(filterName);
     });
     filterName ? setFilteredPersons(filteredPersons) : setFilteredPersons([]);
+  };
+
+  const handleDelete = (id, name) => {
+    if (window.confirm(`Do you want to delete ${name}`)) {
+      personService
+        .deletePerson(id)
+        .then(setPersons(persons.filter((person) => person.id !== id)));
+    }
   };
 
   return (
@@ -79,7 +79,7 @@ function App() {
       />
 
       <h2>Numbers</h2>
-      <Persons persons={persons} />
+      <Persons persons={persons} handleDelete={handleDelete} />
     </div>
   );
 }
