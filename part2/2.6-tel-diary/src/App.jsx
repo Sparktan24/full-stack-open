@@ -24,14 +24,24 @@ function App() {
 
   const addPerson = (e) => {
     e.preventDefault();
-    const isRepeatedPerson = persons.find((person) => person.name === newName);
 
-    if (isRepeatedPerson) {
-      alert(`${newName} is already added to phonebook`);
-      setNewName('');
-      setNewNumber('');
-    } else if (!newName || !newNumber) {
+    const isRepeatedPersonObj = persons.find(
+      (person) => person.name === newName,
+    );
+    const isSameNumber = persons.find((person) => person.number === newNumber);
+
+    if (!newName || !newNumber) {
       alert('Name and number should contain data');
+    } else if (isRepeatedPersonObj && isSameNumber) {
+      alert(`${newName} is already added to phonebook with same number`);
+    } else if (isRepeatedPersonObj && !isSameNumber) {
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`,
+        )
+      ) {
+        updatePerson(isRepeatedPersonObj);
+      }
     } else {
       const personObject = {
         name: newName,
@@ -43,6 +53,22 @@ function App() {
         setPersons(persons.concat(newPerson));
       });
     }
+  };
+
+  const updatePerson = (isRepeatedPersonObj) => {
+    const personObject = { ...isRepeatedPersonObj, number: newNumber };
+    personService
+      .updatePerson(personObject.id, personObject)
+      .then((updatedPerson) => {
+        setNewName('');
+        setNewNumber('');
+        setPersons(
+          persons.map((person) =>
+            person.id !== personObject.id ? person : updatedPerson,
+          ),
+        );
+        //personService.getAll().then((personsRes) => setPersons(personsRes));
+      });
   };
 
   const handleFilterOnName = (e) => {

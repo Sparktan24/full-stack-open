@@ -14,7 +14,9 @@ function PersonForm({
         number: <input value={newNumber} onChange={handleNumberChange} />
       </div>
       <div>
-        <button type="submit">add</button>
+        <button type="submit" style={{ background: '#abfcab' }}>
+          add
+        </button>
       </div>
     </form>
   );
