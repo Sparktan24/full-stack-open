@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001/notes';
+const baseUrl = 'http://localhost:3002/notes';
 
 const getAll = () => {
   const nonExisting = {
@@ -11,6 +11,8 @@ const getAll = () => {
     .get(baseUrl)
     .then((res) => res.data.concat(nonExisting));
 
+  //const request = axios.get(baseUrl).then((res) => res.data);
+
   //return request.then(response => response.data)
   /* console.log(
     axios
@@ -18,7 +20,9 @@ const getAll = () => {
       .then((res) => res.data)
       .then((notes) => console.log(notes)),
   ); */
-  //return axios.get(baseUrl).then((res) => res.data);
+  /*  return axios.get(baseUrl).then((res) => {
+    console.log(res.data);
+  }); */
   return request;
 };
 

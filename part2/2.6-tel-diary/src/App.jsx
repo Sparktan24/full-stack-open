@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Filter from './components/Filter';
+import Notification from './components/Notification';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import personService from './services/person';
@@ -9,6 +10,8 @@ function App() {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filteredPersons, setFilteredPersons] = useState([]);
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     personService.getAll().then((personsRes) => setPersons(personsRes));
@@ -41,6 +44,7 @@ function App() {
         )
       ) {
         updatePerson(isRepeatedPersonObj);
+        updateMessage(`Updated ${isRepeatedPersonObj.name}`);
       }
     } else {
       const personObject = {
@@ -51,8 +55,17 @@ function App() {
         setNewName('');
         setNewNumber('');
         setPersons(persons.concat(newPerson));
+        updateMessage(`Added ${newPerson.name}`);
       });
     }
+  };
+
+  const updateMessage = (message) => {
+    setMessage(message);
+    setTimeout(() => {
+      setMessage(null);
+      setError(false);
+    }, 5000);
   };
 
   const updatePerson = (isRepeatedPersonObj) => {
@@ -68,6 +81,13 @@ function App() {
           ),
         );
         //personService.getAll().then((personsRes) => setPersons(personsRes));
+      })
+      .catch(() => {
+        setError(true);
+        updateMessage(
+          `${personObject.name} was already removed from the server`,
+        );
+        setPersons(persons.filter((person) => person.id !== personObject.id));
       });
   };
 
@@ -89,7 +109,8 @@ function App() {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <Notification message={message} error={error} />
       <Filter
         handleFilterOnName={handleFilterOnName}
         filteredPersons={filteredPersons}
