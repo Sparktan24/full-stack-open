@@ -8,7 +8,7 @@ function App() {
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [notification, setNotification] = useState(null);
   const [CurrentShownCountry, setCurrentShownCountry] = useState(null);
-  //const baseUrl = 'https://studies.cs.helsinki.fi/restcountries/api/all';
+
   useEffect(() => {
     countryService.getAllCountries().then((country) => setCountries(country));
   }, []);
@@ -28,7 +28,6 @@ function App() {
     } else {
       setFilteredCountries(filterCountry);
       setCurrentShownCountry(null);
-      //setSingleCountry([]);
       setNotification(null);
     }
   };
@@ -38,13 +37,9 @@ function App() {
   };
 
   const showCountryHandler = (country) => {
-    if (CurrentShownCountry?.ccn3 === country.ccn3) {
-      setCurrentShownCountry(null);
-    } else {
-      setCurrentShownCountry(country);
-      console.log(country);
-      //setSingleCountry(country);
-    }
+    CurrentShownCountry?.ccn3 === country.ccn3
+      ? setCurrentShownCountry(null)
+      : setCurrentShownCountry(country);
   };
   return (
     <>
